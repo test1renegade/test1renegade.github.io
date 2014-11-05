@@ -62,36 +62,36 @@
 	}
 
 	function getDateDiff(timestamp) {
-		if(null==timestamp||timestamp==""||timestamp=="undefined")
-			return "?";
-		//alert(timestamp);
-		var splitDate=((timestamp.toString().split('T'))[0]).split('-');
-		var d1 = new Date();		
-		
+		if (null === timestamp || timestamp === "" || timestamp === "undefined") return "?";
+		var splitDate = ((timestamp.toString().split('T'))[0]).split('-');
+		var splitTime = ((timestamp.toString().split('T'))[1]).split(':');
+		var d1 = new Date();
 		var d1Y = d1.getFullYear();
-        var d2Y = parseInt(splitDate[0],10);
-        var d1M = d1.getMonth();
-        var d2M = parseInt(splitDate[1],10);
-
-        var diffInMonths = (d1M+12*d1Y)-(d2M+12*d2Y);
-		/*alert(d1Y);
-		alert(d2Y);
-		alert(d1M);
-		alert(d2M);
-		alert(diffInMonths);
-		*/
-		if(diffInMonths<=1)
-			return "1 month";
-		else if(diffInMonths<12)
-			return  diffInMonths+" months";
-		
-		var diffInYears = Math.floor(diffInMonths/12);
-		
-		if(diffInYears<=1)
-			return "1 year";
-		else if(diffInYears<12)
-			return  diffInYears+" years";
-
+		var d2Y = parseInt(splitDate[0], 10);
+		var d1M = d1.getMonth() + 1;
+		var d2M = parseInt(splitDate[1], 10);
+		var d1D = d1.getDate();
+		var d2D = parseInt(splitDate[2], 10);
+		var d1H = d1.getHours();
+		var d2H = parseInt(splitTime[0], 10);
+		var d1T = d1.getMinutes();
+		var d2T = parseInt(splitTime[1], 10);
+		var diffInMinutes = (d1T + 60 *d1H + 24 * d1D + 720 * d1M + 8766 * d1Y) - (d2T + 60 *d2H + 24 * d2D + 720 * d2M + 8766 * d2Y);
+		if (diffInMinutes <= 1) return "1 Minute";
+		else if (diffInMinutes < 60) return diffInMinutes + " Minutes";
+		var diffInHours = (d1H + 24 * d1D + 720 * d1M + 8766 * d1Y) - (d2H + 24 * d2D + 720 * d2M + 8766 * d2Y);
+		if (diffInHours <= 1) return "1 Hour";
+		else if (diffInHours < 24) return diffInHours + " Hours";
+		var diffInDays = (d1D + 30 * d1M + 12 * d1Y) - (d2D + 30 * d2M + 12 * d2Y);
+		if (diffInDays <= 7) return diffInDays + " days";
+		else if (diffInDays > 7 && diffInDays < 14) return "1 week";
+		else if (diffInDays >= 14 && diffInDays < 30) return Math.floor(diffInDays / 7) + " weeks";
+		var diffInMonths = (d1M + 12 * d1Y) - (d2M + 12 * d2Y);
+		if (diffInMonths <= 1) return "1 month";
+		else if (diffInMonths < 12) return diffInMonths + " months";
+		var diffInYears = Math.floor(diffInMonths / 12);
+		if (diffInYears <= 1) return "1 year";
+		else if (diffInYears < 12) return diffInYears + " years";
 	}
 	
 	function getReadableNumber(number) {
@@ -361,7 +361,7 @@
 			
 			$('#youmax-header').append('<img style="vertical-align:middle; height:60px; margin: 15px; display:inline-block;" src="'+channelPic+'"/>'+channelName);
 			
-			$('#youmax-header').append('&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.youtube.com/subscription_center?add_user='+youmaxUser+'"><img style="vertical-align:middle;height:60px;" src="http://s.ytimg.com/yt/img/creators_corner/Subscribe_to_my_videos/YT_Subscribe_64x64_red.png" alt="Subscribe to me on YouTube"/></a>');
+		//	$('#youmax-header').append('&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.youtube.com/subscription_center?add_user='+youmaxUser+'"><img style="vertical-align:middle;height:60px;" src="http://s.ytimg.com/yt/img/creators_corner/Subscribe_to_my_videos/YT_Subscribe_64x64_red.png" alt="Subscribe to me on YouTube"/></a>');
 			
 			//$('#youmax-stat-holder').append('<div class="youmax-stat">'+channelSubscribers+'<br/> subscribers </div><div class="youmax-stat">'+channelViews+'<br/>video views</div>');
 			$('#youmax-stat-holder').append('<div class="youmax-stat"><span class="youmax-stat-count">'+getReadableNumber(channelViews)+'</span><br/> video views </div><div class="youmax-stat"><span class="youmax-stat-count">'+getReadableNumber(channelSubscribers)+'</span><br/>subscribers</div>');
@@ -452,7 +452,7 @@
 				if(showVideoInLightbox){
 					showVideoLightbox(this.id);
 				} else {
-					$('#youmax-video').attr('src','http://www.youtube.com/embed/'+this.id);
+					$('#youmax-video').attr('src','http://www.youtube.com/embed/'+this.id+'?autoplay=1');
 					$('#youmax-video').show();
 					$('html,body').animate({scrollTop: $("#youmax-header").offset().top},'slow');
 				}
@@ -518,7 +518,7 @@
 				if(showVideoInLightbox){
 					showVideoLightbox(this.id);
 				} else {
-					$('#youmax-video').attr('src','http://www.youtube.com/embed/'+this.id);
+					$('#youmax-video').attr('src','http://www.youtube.com/embed/'+this.id+'?autoplay=1');
 					$('#youmax-video').show();
 					$('html,body').animate({scrollTop: $("#youmax-header").offset().top},'slow');
 				}
