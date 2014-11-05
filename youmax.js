@@ -537,7 +537,7 @@
 		
 		function showVideoLightbox(videoId) {			
 			$('#youmax-lightbox').show();
-			$('#youmax-video-lightbox').attr('src','http://www.youtube.com/embed/'+videoId);
+			$('#youmax-video-lightbox').attr('src','http://www.youtube.com/embed/'+videoId+'?autoplay=1;&amphtml5=1');
 			
 			$('#youmax-lightbox').click(function(){
 				$('#youmax-video-lightbox').attr('src','');
